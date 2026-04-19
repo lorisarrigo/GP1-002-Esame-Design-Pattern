@@ -3,22 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed; 
-    public InputAction Movement;
+    [SerializeField] float speed; //Movement Velocity
+    public InputAction Movement; //Input Action that stores the input given in the inspector
     private void Awake()
     {
-        Movement.Enable();
+        Movement.Enable(); //Enables the Inputs
     }
     private void Update()
     {
-        //Quaternion rotationInput = Movement.ReadValue<Quaternion>();
-        Vector3 move = Movement.ReadValue<Vector3>();
-        //float rotate = rotationInput * Time.fixedDeltaTime * speed;
+        Vector3 move = Movement.ReadValue<Vector3>(); //sets the movement Input to a Vector3 Value
 
-        Vector3 position = (Vector3)transform.position + Time.deltaTime * speed * move;
-        //Quaternion rotation = Quaternion.Euler(0, rotate, 0);
-
-        transform.position = position;
-        //transform.rotation = rotation; 
+        //calculate the movement velocity based on the position and the speed of the Player and, olso, the Inputs 
+        Vector3 position = (Vector3)transform.position + Time.deltaTime * speed * move; 
+        transform.position = position; //sets the position
     }
 }
