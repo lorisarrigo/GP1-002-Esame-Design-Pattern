@@ -14,10 +14,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         inputs.Enable();
+        inputs.Player.ShieldAbility.performed += ActivateShield;
+        inputs.Player.MaxHpAbility.performed += ActivateHP;
+        inputs.Player.DamageAbility.performed += ActivateDam;
     }
     private void OnDisable()
     {
         inputs.Disable();
+        inputs.Player.ShieldAbility.performed -= ActivateShield;
+        inputs.Player.MaxHpAbility.performed -= ActivateHP;
+        inputs.Player.DamageAbility.performed -= ActivateDam;
+
     }
     private void Update()
     {
@@ -27,5 +34,17 @@ public class PlayerMovement : MonoBehaviour
             Vector3 position = (Vector3)transform.position + Time.deltaTime * speed * movementinputs;
             transform.position = position;
         }
+    }
+    void ActivateShield(InputAction.CallbackContext context)
+    {
+        Debug.Log("Shield attivato");
+    }
+    void ActivateHP(InputAction.CallbackContext context)
+    {
+        Debug.Log("Max Hp attivato");
+    }
+    void ActivateDam(InputAction.CallbackContext context)
+    {
+        Debug.Log("Damage attivato");
     }
 }
