@@ -26,6 +26,14 @@ public class PlayerMovement : MonoBehaviour
         inputs.Player.DamageAbility.performed -= ActivateDam;
 
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ability"))
+        {
+            Debug.Log(other.name);
+            other.gameObject.SetActive(false);
+        }
+    }
     private void Update()
     {
         Vector3 movementinputs = inputs.Player.Movement.ReadValue<Vector3>();

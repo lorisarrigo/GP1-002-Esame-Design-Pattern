@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 795282940}
   m_Layer: 0
   m_Name: Damage PowerUp
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 1076879781}
   m_Layer: 0
   m_Name: Full Health PowerUp
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 1555298618}
   m_Layer: 0
   m_Name: Shield PowerUp
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
