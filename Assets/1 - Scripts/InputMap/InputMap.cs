@@ -102,9 +102,18 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ShieldAbility"",
+                    ""name"": ""SpeedAbility"",
                     ""type"": ""Button"",
                     ""id"": ""b1dfc7c3-9017-4abc-94c7-24035d92f41c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShieldAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""2059fead-a9a6-431c-bc3f-f9583546713b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -192,6 +201,17 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""SpeedAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bb0592a-9aa7-4300-91cb-8a0ba153cd23"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""ShieldAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -199,7 +219,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""04b96afe-5473-4882-9c06-ae6403fc5556"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -210,7 +230,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5c733c60-0d1d-4843-9f58-af4978b0a17f"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -226,6 +246,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_SpeedAbility = m_Player.FindAction("SpeedAbility", throwIfNotFound: true);
         m_Player_ShieldAbility = m_Player.FindAction("ShieldAbility", throwIfNotFound: true);
         m_Player_MaxHpAbility = m_Player.FindAction("MaxHpAbility", throwIfNotFound: true);
         m_Player_DamageAbility = m_Player.FindAction("DamageAbility", throwIfNotFound: true);
@@ -310,6 +331,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_SpeedAbility;
     private readonly InputAction m_Player_ShieldAbility;
     private readonly InputAction m_Player_MaxHpAbility;
     private readonly InputAction m_Player_DamageAbility;
@@ -328,6 +350,10 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Movement".
         /// </summary>
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SpeedAbility".
+        /// </summary>
+        public InputAction @SpeedAbility => m_Wrapper.m_Player_SpeedAbility;
         /// <summary>
         /// Provides access to the underlying input action "Player/ShieldAbility".
         /// </summary>
@@ -369,6 +395,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @SpeedAbility.started += instance.OnSpeedAbility;
+            @SpeedAbility.performed += instance.OnSpeedAbility;
+            @SpeedAbility.canceled += instance.OnSpeedAbility;
             @ShieldAbility.started += instance.OnShieldAbility;
             @ShieldAbility.performed += instance.OnShieldAbility;
             @ShieldAbility.canceled += instance.OnShieldAbility;
@@ -392,6 +421,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @SpeedAbility.started -= instance.OnSpeedAbility;
+            @SpeedAbility.performed -= instance.OnSpeedAbility;
+            @SpeedAbility.canceled -= instance.OnSpeedAbility;
             @ShieldAbility.started -= instance.OnShieldAbility;
             @ShieldAbility.performed -= instance.OnShieldAbility;
             @ShieldAbility.canceled -= instance.OnShieldAbility;
@@ -448,6 +480,13 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpeedAbility" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpeedAbility(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ShieldAbility" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

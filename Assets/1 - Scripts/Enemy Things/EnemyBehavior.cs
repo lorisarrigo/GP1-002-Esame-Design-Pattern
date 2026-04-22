@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -34,7 +35,7 @@ public class EnemyBehavior : MonoBehaviour
         else
         {
             float rotate = Time.fixedDeltaTime * rotationSpeed;
-            Quaternion turn = Quaternion.Euler(0,rotate, 0);
+            Quaternion turn = Quaternion.Euler(0, rotate, 0);
             rb.MoveRotation(rb.rotation * turn);
         }
 
