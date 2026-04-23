@@ -6,6 +6,7 @@ public class AbilitySwitcher : MonoBehaviour
 {
     InputMap inputs;
     AbilityUser abilityUser;
+    IAbility ability;
     void Awake()
     {
         inputs = new InputMap();
@@ -14,6 +15,7 @@ public class AbilitySwitcher : MonoBehaviour
     void Start()
     {
         abilityUser.CurAbility = new SpeedAbility();
+        ability = abilityUser.CurAbility;
     }
     void OnEnable()
     {
@@ -33,7 +35,6 @@ public class AbilitySwitcher : MonoBehaviour
     }
     void ActivateSpeed(InputAction.CallbackContext context)
     {
-        IAbility ability = abilityUser.CurAbility;
         if (ability is not SpeedAbility)
         {
             abilityUser.CurAbility = new SpeedAbility();
@@ -41,7 +42,6 @@ public class AbilitySwitcher : MonoBehaviour
     }
     void ActivateShield(InputAction.CallbackContext context)
     {
-        IAbility ability = abilityUser.CurAbility;
         if (ability is not ShieldAbility)
         {
             abilityUser.CurAbility = new ShieldAbility();
@@ -49,7 +49,6 @@ public class AbilitySwitcher : MonoBehaviour
     }
     void ActivateHP(InputAction.CallbackContext context)
     {
-        IAbility ability = abilityUser.CurAbility;
         if (ability is not MaxHPAbility)
         {
             abilityUser.CurAbility = new MaxHPAbility();
@@ -57,7 +56,6 @@ public class AbilitySwitcher : MonoBehaviour
     }
     void ActivateDam(InputAction.CallbackContext context)
     {
-        IAbility ability = abilityUser.CurAbility;
         if (ability is not DamageAbility)
         {
             abilityUser.CurAbility = new DamageAbility();
