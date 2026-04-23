@@ -15,19 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         inputs.Enable();
-        inputs.Player.SpeedAbility.started += ActivateSpeed;
-        inputs.Player.ShieldAbility.started += ActivateShield;
-        inputs.Player.MaxHpAbility.started += ActivateHP;
-        inputs.Player.DamageAbility.started += ActivateDam;
     }
     private void OnDisable()
     {
         inputs.Disable();
-        inputs.Player.SpeedAbility.started -= ActivateSpeed;
-        inputs.Player.ShieldAbility.started -= ActivateShield;
-        inputs.Player.MaxHpAbility.started -= ActivateHP;
-        inputs.Player.DamageAbility.started -= ActivateDam;
-
     }
     private void FixedUpdate()
     {
@@ -38,20 +29,5 @@ public class PlayerMovement : MonoBehaviour
             rb.position = position;
         }
     }
-    void ActivateSpeed(InputAction.CallbackContext context)
-    {
-        Debug.Log("Shield attivato");
-    }
-    void ActivateShield(InputAction.CallbackContext context)
-    {
-        Debug.Log("Shield attivato");
-    }
-    void ActivateHP(InputAction.CallbackContext context)
-    {
-        Debug.Log("Max Hp attivato");
-    }
-    void ActivateDam(InputAction.CallbackContext context)
-    {
-        Debug.Log("Damage attivato");
-    }
+
 }
