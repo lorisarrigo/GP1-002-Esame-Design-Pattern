@@ -5,7 +5,13 @@ using UnityEngine.InputSystem;
 public class AbilityUser : MonoBehaviour
 {
     InputMap inputs;
-    [SerializeField] IAbility _currentAbility;
+    IAbility _currentAbility;
+
+    bool speed;
+    bool shield;
+    bool maxHp;
+    bool damage;
+    
     public IAbility CurAbility { get => _currentAbility; set => _currentAbility = value; }
     private void Awake()
     {
@@ -24,25 +30,64 @@ public class AbilityUser : MonoBehaviour
     }
     void Activate(InputAction.CallbackContext context)
     {
-        StartCoroutine(StartAbility(_currentAbility));         
+        switch (_currentAbility)
+        {
+            case SpeedAbility:
+                if (!speed)
+                {
+                    speed = true;
+                    StartCoroutine(StartAbility(_currentAbility));
+                }
+                break;
+            case ShieldAbility:
+                if (!shield)
+                {
+                    shield = true;
+                    StartCoroutine(StartAbility(_currentAbility));
+                }
+                break;
+            case MaxHPAbility:
+                if (!maxHp)
+                {
+                    maxHp = true;
+                    StartCoroutine(StartAbility(_currentAbility));
+                }
+                break;
+            case DamageAbility:
+                if (!damage)
+                {
+                    damage = true;
+                    StartCoroutine(StartAbility(_currentAbility));
+                }
+                break;
+        }
     }
 
     IEnumerator StartAbility(IAbility Ability)
     {
-        bool isActive = false;
-        if(!isActive)
-        {
-            isActive = true;
-            Ability?.UseAbility();
-            Debug.Log(isActive);
-        }
-        if(CurAbility is not MaxHPAbility)
+        Ability?.UseAbility();
+
+        if (Ability is not MaxHPAbility)
             yield return new WaitForSeconds(AbilityManager.Instance.abilityDuration);
         else
             yield return new WaitForSeconds(0);
-        isActive = false;
-        Debug.Log(isActive);
-
         Ability?.ResetPlayerStatus();
+
+        yield return new WaitForSeconds(AbilityManager.Instance.abilityCooldown);
+        switch(Ability)
+        {
+            case SpeedAbility:
+                speed = false;
+                break;
+            case ShieldAbility:
+                shield = false;
+                break;
+            case MaxHPAbility:
+                maxHp = false;
+                break;
+            case DamageAbility:
+                damage = false;
+                break;
+        }
     }
 }

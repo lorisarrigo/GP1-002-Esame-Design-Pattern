@@ -2143,6 +2143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityManager
   abilityDuration: 3
+  abilityCooldown: 5
   baseSpeed: 0
   shieldArea: {fileID: 589652131}
   shieldBar: {fileID: 1040331792}
