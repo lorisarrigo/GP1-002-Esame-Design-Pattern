@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AbilietiesManager : MonoBehaviour
+public class Ability : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

@@ -1,13 +1,23 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
     InputMap inputs;
     Rigidbody rb;
-    [SerializeField] float speed; //Movement Velocity
+    public float speed; //Movement Velocity
+
+    public static PlayerMovement Instance;
+
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+
         inputs = new InputMap();
         rb =GetComponent<Rigidbody>();
     }
