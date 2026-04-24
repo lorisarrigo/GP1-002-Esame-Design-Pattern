@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability : MonoBehaviour
+public class AbilityPickUp : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

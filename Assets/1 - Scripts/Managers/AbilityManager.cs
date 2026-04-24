@@ -7,8 +7,8 @@ public class AbilityManager : MonoBehaviour
     public float abilityDuration;
     [HideInInspector] public float baseSpeed;
     public GameObject shieldArea;
-    public Image shieldbar;
-    public LayerMask enemy;
+    public Image shieldBar; //da spostare nello UImanager
+    public Image healthBar;
     public GameObject damageArea;
 
     public static AbilityManager Instance;

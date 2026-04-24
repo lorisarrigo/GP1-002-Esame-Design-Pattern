@@ -7,7 +7,6 @@ public class AbilityUser : MonoBehaviour
     InputMap inputs;
     [SerializeField] IAbility _currentAbility;
     public IAbility CurAbility { get => _currentAbility; set => _currentAbility = value; }
-    bool isActive = false;
     private void Awake()
     {
         inputs = new InputMap();
@@ -25,15 +24,16 @@ public class AbilityUser : MonoBehaviour
     }
     void Activate(InputAction.CallbackContext context)
     {
-        StartCoroutine(StartAbility());         
+        StartCoroutine(StartAbility(_currentAbility));         
     }
 
-    IEnumerator StartAbility()
+    IEnumerator StartAbility(IAbility Ability)
     {
-        if (isActive == false)
+        bool isActive = false;
+        if(!isActive)
         {
-            _currentAbility?.UseAbility();
             isActive = true;
+            Ability?.UseAbility();
             Debug.Log(isActive);
         }
         if(CurAbility is not MaxHPAbility)
@@ -43,6 +43,6 @@ public class AbilityUser : MonoBehaviour
         isActive = false;
         Debug.Log(isActive);
 
-        _currentAbility?.ResetPlayerStatus();
+        Ability?.ResetPlayerStatus();
     }
 }

@@ -11,5 +11,4 @@ public class ShieldAbility : IAbility
     {
         AbilityManager.Instance.shieldArea.SetActive(false);
     }
-
 }

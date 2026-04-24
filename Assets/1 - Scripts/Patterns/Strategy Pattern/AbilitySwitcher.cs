@@ -6,7 +6,7 @@ public class AbilitySwitcher : MonoBehaviour
 {
     InputMap inputs;
     AbilityUser abilityUser;
-    IAbility ability;
+    IAbility ability => abilityUser.CurAbility;
     void Awake()
     {
         inputs = new InputMap();
@@ -15,7 +15,6 @@ public class AbilitySwitcher : MonoBehaviour
     void Start()
     {
         abilityUser.CurAbility = new SpeedAbility();
-        ability = abilityUser.CurAbility;
     }
     void OnEnable()
     {
@@ -32,6 +31,11 @@ public class AbilitySwitcher : MonoBehaviour
         inputs.Player.ShieldAbility.started -= ActivateShield;
         inputs.Player.MaxHpAbility.started -= ActivateHP;
         inputs.Player.DamageAbility.started -= ActivateDam;
+    }
+
+    private void Update()
+    {
+        Debug.Log(ability);
     }
     void ActivateSpeed(InputAction.CallbackContext context)
     {
