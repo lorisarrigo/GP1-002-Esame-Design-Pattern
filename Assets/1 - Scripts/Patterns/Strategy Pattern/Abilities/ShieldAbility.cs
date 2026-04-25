@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShieldAbility : IAbility
 {
-        public void UseAbility()
+    public void UseAbility()
     {
         AbilityManager.Instance.shieldArea.SetActive(true);
         //AGGIUNGERE FILLBAR SHIELD

@@ -1,11 +1,16 @@
 using UnityEngine;
 
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
+    [SerializeField] Vector3 startingPoint;
     InputMap inputs;
     Rigidbody rb;
+
     public float speed; //Movement Velocity
+
+    public float maxHP;
+    public float currentHP;
 
     public static PlayerMovement Instance;
 
@@ -19,9 +24,13 @@ public class PlayerMovement : MonoBehaviour
         Instance = this;
 
         inputs = new InputMap();
-        rb =GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        currentHP = maxHP;
+    }
     private void OnEnable()
     {
         inputs.Enable();
@@ -33,11 +42,21 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movementinputs = inputs.Player.Movement.ReadValue<Vector3>();
-        if(movementinputs != Vector3.zero)
+        if (movementinputs != Vector3.zero)
         {
             Vector3 position = rb.position + Time.fixedDeltaTime * speed * movementinputs;
             rb.position = position;
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        currentHP -= damage;
+    }
+
+    public void Despawn()
+    {
+        transform.position = startingPoint;
+        currentHP = maxHP;
+    }
 }

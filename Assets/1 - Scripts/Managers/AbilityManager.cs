@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -7,8 +6,6 @@ public class AbilityManager : MonoBehaviour
     public float abilityCooldown;
     [HideInInspector] public float baseSpeed;
     public GameObject shieldArea;
-    public Image shieldBar; //da spostare nello UImanager
-    public Image healthBar;
     public GameObject damageArea;
 
     public static AbilityManager Instance;
