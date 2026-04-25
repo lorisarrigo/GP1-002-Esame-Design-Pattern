@@ -164,6 +164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 4
       objectReference: {fileID: 0}
+    - target: {fileID: 724946394412596608, guid: 1a93393cff8a78d4f9d335b58528f93b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2121416796679967830, guid: 1a93393cff8a78d4f9d335b58528f93b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -775,6 +779,8 @@ MonoBehaviour:
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  dmg: 15
+  dmgRate: 0.9
 --- !u!1 &589652131 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7024747092733487774, guid: 20d5c4e9c1382c44a8eb2b7e2674546f, type: 3}

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     public float speed; //Movement Velocity
 
     public float maxHP;
-    public float currentHP;
+    [HideInInspector] public float currentHP; 
 
     public static PlayerMovement Instance;
 

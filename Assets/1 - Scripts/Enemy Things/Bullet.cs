@@ -4,7 +4,6 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody rb;
     GameObject collObj;
-
     [SerializeField] float bSpeed, dmgPerHit, dPos;
     public Vector3 startPos, despawnPos;
 
@@ -21,7 +20,9 @@ public class Bullet : MonoBehaviour
     {
         collObj = other.gameObject;
         DmgOnHit();
-        gameObject.SetActive(false);
+        //if (collObj != null) return;
+        if(collObj != AbilityManager.Instance.damageArea)
+            gameObject.SetActive(false);
     }
 
     public void FixedUpdate()

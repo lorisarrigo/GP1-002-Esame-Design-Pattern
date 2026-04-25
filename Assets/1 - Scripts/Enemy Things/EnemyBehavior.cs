@@ -4,6 +4,9 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
 {
     Rigidbody rb; //sets the Rigidbody variable
 
+    [SerializeField] float maxHP;
+    public float currentHp;
+
     [SerializeField] float overlapScale; //the scale of the OverlapSphere
     [SerializeField] LayerMask PlayerLayer; //the mask that the Overlap needs to follow
     [SerializeField] float rotationSpeed; //the speed of the rotation of the enemy
@@ -12,19 +15,18 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
     public GameObject bullet;
     public float bRate;
     float timer;
-    [SerializeField] LayerMask bulletLayer; //the mask that the Overlap needs to follow
-
-
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>(); //gets the rigidbody
     }
+    private void Start()
+    {
+        currentHp = maxHP;
+    }
     private void FixedUpdate()
     {
         Collider[] PlayerPatrolArea = Physics.OverlapSphere(transform.position, overlapScale, PlayerLayer); //create the overlapSphere
-        //Collider[] BulletArea = Physics.OverlapSphere(transform.position, overlapScale, bulletLayer); //create the overlapSphere
-
 
         /*if the Overlap detect the Player:
          *  saves the coordinate of the Player position     
@@ -55,11 +57,11 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
     }
     public void TakeDamage(float damage)
     {
-        Debug.Log("sono vivo");
+        currentHp -= damage;
     }
     public void Despawn()
     {
-        Debug.Log("sono morto");
+        gameObject.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()

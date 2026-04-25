@@ -188,6 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd3e8eec90f5dd4981146d9c526ff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehavior
+  maxHP: 100
+  currentHp: 0
   overlapScale: 10
   PlayerLayer:
     serializedVersion: 2
@@ -196,9 +198,6 @@ MonoBehaviour:
   bulletSpawner: {fileID: 1226688196358517011}
   bullet: {fileID: 7303623702885981434, guid: 3b9cdf96197883642ab6c194b5c249a7, type: 3}
   bRate: 3
-  bulletLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &2964353135559490820
 GameObject:
   m_ObjectHideFlags: 0
