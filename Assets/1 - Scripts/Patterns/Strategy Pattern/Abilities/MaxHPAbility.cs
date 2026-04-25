@@ -5,9 +5,7 @@ public class MaxHPAbility : IAbility
 
     public void UseAbility()
     {
-        Debug.Log("HEEEEALLL!");
-
-        //aggiungere fill healthbar & invincibility
+        PlayerMovement.Instance.currentHP = PlayerMovement.Instance.maxHP;
     }
     public void ResetPlayerStatus()
     {

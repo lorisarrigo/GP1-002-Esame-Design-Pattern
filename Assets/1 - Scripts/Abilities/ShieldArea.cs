@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class ShieldArea : MonoBehaviour
+public class ShieldArea : MonoBehaviour, IDamageable
 {
-    private void OnTriggerEnter(Collider other)
+    public void TakeDamage(float damage)
     {
-        EnemyBehavior proiettile = other.GetComponent<EnemyBehavior>(); //da sostiuire con lo script del proiettile
-        if (proiettile != null)
-        {
-            Debug.Log("distrutto");
-            gameObject.SetActive(proiettile.gameObject);
-        }
+        AbilityManager.Instance.shieldCurrentHp -= damage;
     }
+    public void Despawn()
+    {
+        gameObject.SetActive(false);
+    }
+
 }

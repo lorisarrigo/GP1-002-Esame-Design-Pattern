@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4083387510818134428}
   - component: {fileID: 8921837539398996911}
   - component: {fileID: 7776957715455753812}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 724946394412596608}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.54, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -194,10 +194,10 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 64
-  rotationSpeed: 200
+  rotationSpeed: 100
   bulletSpawner: {fileID: 1226688196358517011}
   bullet: {fileID: 7303623702885981434, guid: 3b9cdf96197883642ab6c194b5c249a7, type: 3}
-  bRate: 3
+  bRate: 1.5
 --- !u!1 &2964353135559490820
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,8 +20,9 @@ public class Bullet : MonoBehaviour
     {
         collObj = other.gameObject;
         DmgOnHit();
-        //if (collObj != null) return;
-        if(collObj != AbilityManager.Instance.damageArea)
+        if(AbilityManager.Instance.shieldCurrentHp > 0)
+            DmgShield();
+        if (collObj != AbilityManager.Instance.damageArea)
             gameObject.SetActive(false);
     }
 
@@ -38,17 +39,29 @@ public class Bullet : MonoBehaviour
         collObj.TryGetComponent(out PlayerMovement player);
 
         if (damageable == null) return;
-        damageable.TakeDamage(dmgPerHit);
+        if (AbilityManager.Instance.shieldCurrentHp <= 0)
+            damageable.TakeDamage(dmgPerHit);
 
         if (player == null) return;
         if (player.currentHP <= 0)
-        {
             damageable.Despawn();
-        }
+    }
+    public void DmgShield()
+    {
+        if (collObj == null) return;
+        collObj.TryGetComponent(out IDamageable damageable);
+        collObj.TryGetComponent(out ShieldArea shield);
+
+        if (damageable == null) return;
+        damageable.TakeDamage(dmgPerHit);
+
+        if (shield == null) return;
+        if (AbilityManager.Instance.shieldCurrentHp <= 0)
+            damageable.Despawn();
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(despawnPos, new Vector3(1,1,1));
+        Gizmos.DrawWireCube(despawnPos, new Vector3(1, 1, 1));
     }
 }
