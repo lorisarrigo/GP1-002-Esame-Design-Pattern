@@ -1,17 +1,32 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AbilityManager : MonoBehaviour
 {
+    //stores variable and Object so that it can give them to the abilities
+    /*it's recalled in:
+     * Bullet to check if the health of the shield and to ignore the Damage area;
+     * UIManager to update the Health of the shield;
+     * DamageAbility to activate/deactivate the Damage Area;
+     * ShieldAbility to activate/deactivate the Shield and to change the values of the fillbar;
+     * ShieldArea to make the Shield area take damage;
+     * SpeedAbility to make the speed at its base value;
+     * AbilityUser to set the duration and the cooldown of the abilities
+    */
+
+    [Header("General Ability settings")]
     public float abilityDuration;
     public float abilityCooldown;
+
+    //base Player Speed
     [HideInInspector] public float baseSpeed;
-    
-    public GameObject shieldArea;
+
+    [Header("Shield")]
+    public GameObject shieldArea; //the Shield GameObject
     public float shieldMaxHp;
     public float shieldCurrentHp;
-    
-    public GameObject damageArea;
+
+    [Header("Damage")]
+    public GameObject damageArea; //the Damage GameObject
 
     public static AbilityManager Instance;
 
@@ -26,6 +41,6 @@ public class AbilityManager : MonoBehaviour
     }
     private void Start()
     {
-        baseSpeed = PlayerMovement.Instance.speed;
+        baseSpeed = Player.Instance.speed;
     }
 }

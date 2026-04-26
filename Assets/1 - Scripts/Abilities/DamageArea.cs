@@ -1,12 +1,16 @@
 using System.Collections;
 using UnityEngine;
-
 public class DamageArea : MonoBehaviour
 {
-    [SerializeField] LayerMask EnemyLayer;
-    [SerializeField] float dmg;
+    //The class used to deal damage at the Enemies 
 
-    [SerializeField] float dmgRate;
+    [SerializeField] float dmg, dmgRate;
+
+    GameObject collObj;
+    private void OnTriggerStay(Collider other)
+    {
+        collObj = other.gameObject;
+    }
     private void OnEnable()
     {
         StartCoroutine(DealDamage());
@@ -16,8 +20,10 @@ public class DamageArea : MonoBehaviour
         StopAllCoroutines();
     }
 
+    //this coroutine does damage without a timer, the Coroutine itself is the timer
     IEnumerator DealDamage()
-    {while(true)
+    {
+        while (true)
         {
             ApplyDam();
             yield return new WaitForSeconds(dmgRate);
@@ -25,16 +31,15 @@ public class DamageArea : MonoBehaviour
     }
     private void ApplyDam()
     {
-        Collider[] overlap = Physics.OverlapSphere(transform.position, transform.lossyScale.x/2, EnemyLayer);
-        foreach (var enemyc in overlap)
-        {
-            if (enemyc.TryGetComponent(out IDamageable damageable))
-            {
-                Debug.Log("colpito");
-                damageable.TakeDamage(dmg);
-            }
-            if(enemyc.TryGetComponent(out EnemyBehavior enemy) && enemy.currentHp <= 0 && enemy != null)
-                damageable.Despawn();
-        }
+        if (collObj == null) return;
+        collObj.TryGetComponent(out IDamageable damageable);
+        collObj.TryGetComponent(out EnemyBehavior enemy);
+
+        if (damageable == null) return;
+        damageable.TakeDamage(dmg);
+
+        if (enemy == null) return;
+        if (enemy.currentHp <= 0)
+            damageable.Despawn();
     }
 }

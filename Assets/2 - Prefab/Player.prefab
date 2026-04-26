@@ -285,10 +285,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5547621679102770154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1020da5d3a2b8d3408bfeda60d58d04f, type: 3}
+  m_Script: {fileID: 11500000, guid: 463d069c313871b489cb268d45e585c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  startingPoint: {x: 0, y: 1, z: 0}
   speed: 7
   maxHP: 100
   currentHP: 0

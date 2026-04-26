@@ -1,11 +1,12 @@
 public class SpeedAbility : IAbility
 {
+    //increment the speed of the Player
     public void UseAbility()
     {
-        PlayerMovement.Instance.speed *= 2;
+        Player.Instance.speed *= 2;
     }
     public void ResetPlayerStatus()
     {
-        PlayerMovement.Instance.speed = AbilityManager.Instance.baseSpeed;
+        Player.Instance.speed = AbilityManager.Instance.baseSpeed;
     }
 }

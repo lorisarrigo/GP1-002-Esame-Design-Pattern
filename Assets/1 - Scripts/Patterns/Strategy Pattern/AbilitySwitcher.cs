@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Automatically Add the Abilityuser script to the object
 [RequireComponent(typeof(AbilityUser))]
 public class AbilitySwitcher : MonoBehaviour
 {
+    //switch the Ability selected by the inputs or the selected Icon in the UI
+
     InputMap inputs;
     AbilityUser abilityUser;
-    IAbility ability => abilityUser.CurAbility;
+    IAbility Ability => abilityUser.CurAbility; //Automatically pass the Ability selected to the user
     void Awake()
     {
         inputs = new InputMap();
@@ -19,6 +22,7 @@ public class AbilitySwitcher : MonoBehaviour
     void OnEnable()
     {
         inputs.Enable();
+        //Inputs: Speed (1); Shield (2); MaxHp (3); Damage(4);
         inputs.Player.SpeedAbility.started += ActivateSpeed;
         inputs.Player.ShieldAbility.started += ActivateShield;
         inputs.Player.MaxHpAbility.started += ActivateHP;
@@ -35,32 +39,33 @@ public class AbilitySwitcher : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(ability);
+        Debug.Log(Ability);
     }
+    //sets the current ability selected by the input
     void ActivateSpeed(InputAction.CallbackContext context)
     {
-        if (ability is not SpeedAbility)
+        if (Ability is not SpeedAbility)
         {
             abilityUser.CurAbility = new SpeedAbility();
         }
     }
     void ActivateShield(InputAction.CallbackContext context)
     {
-        if (ability is not ShieldAbility)
+        if (Ability is not ShieldAbility)
         {
             abilityUser.CurAbility = new ShieldAbility();
         }
     }
     void ActivateHP(InputAction.CallbackContext context)
     {
-        if (ability is not MaxHPAbility)
+        if (Ability is not MaxHPAbility)
         {
             abilityUser.CurAbility = new MaxHPAbility();
         }
     }
     void ActivateDam(InputAction.CallbackContext context)
     {
-        if (ability is not DamageAbility)
+        if (Ability is not DamageAbility)
         {
             abilityUser.CurAbility = new DamageAbility();
         }

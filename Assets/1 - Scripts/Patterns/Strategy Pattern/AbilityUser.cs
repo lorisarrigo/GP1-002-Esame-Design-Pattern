@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 
 public class AbilityUser : MonoBehaviour
 {
-    InputMap inputs;
-    IAbility _currentAbility;
+    //The User, Cast the ability
 
-    bool speed;
-    bool shield;
-    bool maxHp;
-    bool damage;
-    
+    InputMap inputs;
+
+    //bools used to permit the use of multiple ability at the same time
+    bool speed, shield, maxHp, damage;
+
+    IAbility _currentAbility;
     public IAbility CurAbility { get => _currentAbility; set => _currentAbility = value; }
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class AbilityUser : MonoBehaviour
     private void OnEnable()
     {
         inputs.Enable();
+        //input: Casting (space)
         inputs.Player.ActivateAbility.started += Activate;
     }
     private void OnDisable()
@@ -28,6 +29,7 @@ public class AbilityUser : MonoBehaviour
         inputs.Disable();
         inputs.Player.ActivateAbility.started -= Activate;
     }
+    //create start the Coroutine for the Ability selected
     void Activate(InputAction.CallbackContext context)
     {
         switch (_currentAbility)
@@ -63,6 +65,7 @@ public class AbilityUser : MonoBehaviour
         }
     }
 
+    //Coroutine used to manage the duration & the cooldown of the Ability
     IEnumerator StartAbility(IAbility Ability)
     {
         Ability?.UseAbility();
@@ -74,7 +77,7 @@ public class AbilityUser : MonoBehaviour
         Ability?.ResetPlayerStatus();
 
         yield return new WaitForSeconds(AbilityManager.Instance.abilityCooldown);
-        switch(Ability)
+        switch (Ability)
         {
             case SpeedAbility:
                 speed = false;

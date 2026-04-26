@@ -1,11 +1,10 @@
 using UnityEngine;
-
 public class MaxHPAbility : IAbility
 {
-
+    //refill the Health of the Player
     public void UseAbility()
     {
-        PlayerMovement.Instance.currentHP = PlayerMovement.Instance.maxHP;
+        Player.Instance.currentHP = Player.Instance.maxHP;
     }
     public void ResetPlayerStatus()
     {

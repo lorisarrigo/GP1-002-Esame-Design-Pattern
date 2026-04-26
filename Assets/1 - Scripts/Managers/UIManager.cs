@@ -1,23 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
-
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject inGameHUD; //si disattiva una volta attivati i Menù
-    //Health system
-    public Image healthBar; 
-    public Image shieldBar; 
+    //Manages the element in the HUD of the Player
+
+    //it activate when the game is running
+    [SerializeField] GameObject inGameHUD; 
+
+    //Health/Shield Bars
+    public Image healthBar, shieldBar;
 
     //Abilities
-    public GameObject speedIcon;
-    public GameObject shieldIcon;
-    public GameObject maxHpIcon;
-    public GameObject damageIcon;
+    public GameObject speedIcon, shieldIcon, maxHpIcon, damageIcon;
 
     private void Update()
     {
-        healthBar.fillAmount = (float)PlayerMovement.Instance.currentHP / (float)PlayerMovement.Instance.maxHP;
-
+        //Updates the 2 Bars of the Player
+        healthBar.fillAmount = (float)Player.Instance.currentHP / (float)Player.Instance.maxHP;
         shieldBar.fillAmount = (float)AbilityManager.Instance.shieldCurrentHp / (float)AbilityManager.Instance.shieldMaxHp;
     }
 }

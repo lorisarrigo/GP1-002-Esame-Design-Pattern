@@ -1,5 +1,6 @@
 public class ShieldAbility : IAbility
 {
+    //Activate/Deactivate the Shield & sets the health of the Shield
     public void UseAbility()
     {
         AbilityManager.Instance.shieldArea.SetActive(true);

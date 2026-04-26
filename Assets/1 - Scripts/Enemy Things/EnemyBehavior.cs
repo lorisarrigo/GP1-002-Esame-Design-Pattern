@@ -1,24 +1,29 @@
 using UnityEngine;
-
 public class EnemyBehavior : MonoBehaviour, IDamageable
 {
-    Rigidbody rb; //sets the Rigidbody variable
+    //the class used to manage how the Enemy Behavs 
 
+    //gets the Pooler
+    [SerializeField] ItemPooler Pooler;
+    Rigidbody rb;
+
+    [Header("Health stats")]
     [SerializeField] float maxHP;
     public float currentHp;
 
+    [Header("Attack Area")]
     [SerializeField] float overlapScale; //the scale of the OverlapSphere
     [SerializeField] LayerMask PlayerLayer; //the mask that the Overlap needs to follow
     [SerializeField] float rotationSpeed; //the speed of the rotation of the enemy
 
+    [Header("Bullet settings")]
     [SerializeField] Transform bulletSpawner;
-    public GameObject bullet;
-    public float bRate;
+    [SerializeField] float bRate;
     float timer;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>(); //gets the rigidbody
+        rb = GetComponent<Rigidbody>();
     }
     private void Start()
     {
@@ -37,14 +42,14 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
          *  and rotate the RigidBody in said coordinate
          */
 
-        if (PlayerPatrolArea.Length > 0 )
+        if (PlayerPatrolArea.Length > 0)
         {
             Vector3 Player = PlayerPatrolArea[0].transform.position;
             transform.LookAt(Player);
             timer += Time.deltaTime;
             if (timer >= bRate)
             {
-                Instantiate(bullet, bulletSpawner.position, bulletSpawner.rotation);
+                Pooler.GetBullet(bulletSpawner.position, bulletSpawner.rotation);
                 timer = 0;
             }
         }
@@ -53,8 +58,10 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
             float rotate = Time.fixedDeltaTime * rotationSpeed;
             Quaternion turn = Quaternion.Euler(0, rotate, 0);
             rb.MoveRotation(rb.rotation * turn);
+            timer = 0;
         }
     }
+    //the health function so the enemy can take damage and despawn
     public void TakeDamage(float damage)
     {
         currentHp -= damage;
@@ -66,7 +73,7 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
 
     private void OnDrawGizmosSelected()
     {
-        //draws a Gizmo to see the traking area
+        //draws a Gizmo to see the Attack area
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, overlapScale);
     }
