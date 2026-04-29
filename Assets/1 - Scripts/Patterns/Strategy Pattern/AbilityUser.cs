@@ -79,10 +79,8 @@ public class AbilityUser : MonoBehaviour
     {
         Ability?.UseAbility();
 
-        if (Ability is not MaxHPAbility)
-            yield return new WaitForSeconds(AbilityManager.Instance.abilityDuration);
-        else
-            yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(AbilityManager.Instance.abilityDuration);
+
         Ability?.ResetPlayerStatus();
 
         yield return new WaitForSeconds(AbilityManager.Instance.abilityCooldown);

@@ -19,7 +19,7 @@ public class AbilityManager : MonoBehaviour
 
     //base Player Speed
     [HideInInspector] public float baseSpeed;
-
+    public bool invincible;
     [Header("Shield")]
     public GameObject shieldArea; //the Shield GameObject
     

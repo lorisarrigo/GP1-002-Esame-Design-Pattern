@@ -4,12 +4,16 @@ public class Bullet : MonoBehaviour
     //the class used to deal damage on contact to the Player & Shield
     Rigidbody rb;
     GameObject collObj;
-    [SerializeField] float bSpeed, dmgPerHit, dPos; //speed, damage & despawn position of the Bullet
+    [SerializeField] float bSpeed, baseDmg, dmgPerHit, dPos; //speed, damage & despawn position of the Bullet
     public Vector3 spawnPos, despawnPos; //the starting and end point of the trajectory 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    private void Start()
+    {
+        dmgPerHit = baseDmg;
     }
     private void OnEnable()
     {
@@ -46,6 +50,11 @@ public class Bullet : MonoBehaviour
         //if the Bullet Surpass the despawn position deactivate it
         if (Vector3.Distance(spawnPos, transform.position) >= dPos)
             gameObject.SetActive(false);
+
+        if (AbilityManager.Instance.invincible)
+            dmgPerHit = 0;
+        else
+            dmgPerHit = baseDmg;
     }
     private void OnDrawGizmos()
     {

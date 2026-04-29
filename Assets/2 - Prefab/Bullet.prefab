@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   bSpeed: 175
-  dmgPerHit: 15
+  baseDmg: 15
+  dmgPerHit: 0
   dPos: 9
+  spawnPos: {x: 0, y: 0, z: 0}
   despawnPos: {x: 0, y: 0, z: 0}
