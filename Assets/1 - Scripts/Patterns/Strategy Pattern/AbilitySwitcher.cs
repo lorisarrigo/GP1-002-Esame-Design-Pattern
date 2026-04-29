@@ -51,21 +51,21 @@ public class AbilitySwitcher : MonoBehaviour
     }
     void ActivateShield(InputAction.CallbackContext context)
     {
-        if (Ability is not ShieldAbility)
+        if (Ability is not ShieldAbility && AbilityManager.Instance.ShieldCheck)
         {
             abilityUser.CurAbility = new ShieldAbility();
         }
     }
     void ActivateHP(InputAction.CallbackContext context)
     {
-        if (Ability is not MaxHPAbility)
+        if (Ability is not MaxHPAbility && AbilityManager.Instance.MaxHpCheck)
         {
             abilityUser.CurAbility = new MaxHPAbility();
         }
     }
     void ActivateDam(InputAction.CallbackContext context)
     {
-        if (Ability is not DamageAbility)
+        if (Ability is not DamageAbility && AbilityManager.Instance.DamageCheck)
         {
             abilityUser.CurAbility = new DamageAbility();
         }

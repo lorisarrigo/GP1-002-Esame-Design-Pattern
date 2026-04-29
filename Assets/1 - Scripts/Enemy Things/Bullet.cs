@@ -22,32 +22,22 @@ public class Bullet : MonoBehaviour
         //ignores the damage Area so it can't Deactivate the Bullet
         collObj = other.gameObject;
 
-        if (collObj != AbilityManager.Instance.damageArea)
+        if (collObj != AbilityManager.Instance.damageArea && collObj != AbilityManager.Instance.shieldArea)
             gameObject.SetActive(false);
 
-        //differentiate the Player to the Shield so it know when to despawn the Player and when the Shield
+        //when the bullet hit an Object checks if it has the Interface and the script so it can deal Damage to the Player
 
         if (collObj == null) return;
         collObj.TryGetComponent(out IDamageable damageable);
-        
+        collObj.TryGetComponent(out Player player);
+
         if (damageable == null) return;
-        if (collObj.TryGetComponent(out ShieldArea shield))
-        {
-            damageable.TakeDamage(dmgPerHit);
+        damageable.TakeDamage(dmgPerHit);
 
-            if (shield == null) return;
-            if (AbilityManager.Instance.shieldCurrentHp <= 0)
-                damageable.Despawn();
-        }
-        else if (collObj.TryGetComponent(out Player player))
-        {
-            if (AbilityManager.Instance.shieldCurrentHp <= 0)
-                damageable.TakeDamage(dmgPerHit);
-
-            if (player == null) return;
-            if (player.currentHP <= 0)
-                damageable.Despawn();
-        }
+        //checks if the Player or the shield has no more HP 
+        if (player == null) return;
+        if (player.currentHP <= 0 || player.shieldCurrentHp <= 0 && AbilityManager.Instance.shieldArea.activeInHierarchy)
+            damageable.Despawn();
     }
 
     public void FixedUpdate()

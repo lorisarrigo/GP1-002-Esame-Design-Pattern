@@ -5,6 +5,7 @@ public class DamageAbility : IAbility
     {
         AbilityManager.Instance.damageArea.SetActive(true);
     }
+
     public void ResetPlayerStatus()
     {
         AbilityManager.Instance.damageArea.SetActive(false);

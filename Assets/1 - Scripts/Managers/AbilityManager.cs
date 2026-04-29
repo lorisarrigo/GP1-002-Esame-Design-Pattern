@@ -22,11 +22,15 @@ public class AbilityManager : MonoBehaviour
 
     [Header("Shield")]
     public GameObject shieldArea; //the Shield GameObject
-    public float shieldMaxHp;
-    public float shieldCurrentHp;
+    
 
     [Header("Damage")]
     public GameObject damageArea; //the Damage GameObject
+
+    [Header("Unlock checks")]
+    public bool ShieldCheck = false;
+    public bool MaxHpCheck = false;
+    public bool DamageCheck = false;
 
     public static AbilityManager Instance;
 

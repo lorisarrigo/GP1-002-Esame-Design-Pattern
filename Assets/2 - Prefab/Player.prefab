@@ -125,9 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f233775285f645946b9d23303088059d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Area
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
   dmg: 15
   dmgRate: 0.9
 --- !u!1 &5547621679102770154
@@ -291,6 +288,8 @@ MonoBehaviour:
   speed: 7
   maxHP: 100
   currentHP: 0
+  shieldMaxHp: 0
+  shieldCurrentHp: 0
 --- !u!1 &6562230148548576688
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +439,6 @@ GameObject:
   - component: {fileID: 6689416328593217323}
   - component: {fileID: 6935857550673210857}
   - component: {fileID: 2348129617285260804}
-  - component: {fileID: 6648982325356360561}
   m_Layer: 6
   m_Name: Shield
   m_TagString: Untagged
@@ -541,15 +539,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6648982325356360561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024747092733487774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d4cd72991522243a5c411e124ff2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldArea

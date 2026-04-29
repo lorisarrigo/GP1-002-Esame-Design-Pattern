@@ -21,6 +21,8 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Health")]
     public float maxHP; //the Maximum amount of health
     [HideInInspector] public float currentHP; //the current amount
+    public float shieldMaxHp;
+    public float shieldCurrentHp;
 
     public static Player Instance;
 
@@ -67,13 +69,25 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         //everytime a bullet hit the Player takes the damage and subtract it to the curren health
-        currentHP -= damage;
+        
+        if(AbilityManager.Instance.shieldArea.activeInHierarchy)
+            shieldCurrentHp -= damage;
+        else
+            currentHP -= damage; 
     }
 
     public void Despawn()
     {
         //when the Player dies repositions it at the starting point and refill the health 
-        transform.position = startingPoint;
-        currentHP = maxHP;
+        if (AbilityManager.Instance.shieldArea.activeInHierarchy)
+        {
+            AbilityManager.Instance.shieldArea.SetActive(false);
+        }
+        else
+        {
+            transform.position = startingPoint;
+            currentHP = maxHP;
+            AbilityCommand.Instance.UndoCommand();
+        }
     }
 }
