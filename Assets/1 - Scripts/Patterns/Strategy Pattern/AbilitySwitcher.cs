@@ -44,26 +44,43 @@ public class AbilitySwitcher : MonoBehaviour
     //sets the current ability selected by the input
     void ActivateSpeed(InputAction.CallbackContext context)
     {
+        ChangeToSpeed();
+    }
+    void ActivateShield(InputAction.CallbackContext context)
+    {
+        ChangeToShield();
+    }
+    void ActivateHP(InputAction.CallbackContext context)
+    {
+        ChangeToHp();
+    }
+    void ActivateDam(InputAction.CallbackContext context)
+    {
+        ChangeToDmg();
+    }
+
+    public void ChangeToSpeed()
+    {
         if (Ability is not SpeedAbility)
         {
             abilityUser.CurAbility = new SpeedAbility();
         }
     }
-    void ActivateShield(InputAction.CallbackContext context)
+    public void ChangeToShield()
     {
         if (Ability is not ShieldAbility && AbilityManager.Instance.ShieldCheck)
         {
             abilityUser.CurAbility = new ShieldAbility();
         }
     }
-    void ActivateHP(InputAction.CallbackContext context)
+    public void ChangeToHp()
     {
         if (Ability is not MaxHPAbility && AbilityManager.Instance.MaxHpCheck)
         {
             abilityUser.CurAbility = new MaxHPAbility();
         }
     }
-    void ActivateDam(InputAction.CallbackContext context)
+    public void ChangeToDmg()
     {
         if (Ability is not DamageAbility && AbilityManager.Instance.DamageCheck)
         {
