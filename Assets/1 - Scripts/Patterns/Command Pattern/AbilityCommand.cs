@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 public class AbilityCommand : MonoBehaviour
 {
-    public static AbilityCommand Instance;
-
     private Stack<ICommand> undoStack = new();
+    public static AbilityCommand Instance;
     private void Awake()
     {
         if(Instance != null)

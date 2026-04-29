@@ -1,14 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI;
+
 public class UIManager : MonoBehaviour
 {
     //Manages the element in the HUD of the Player
 
-    //Health/Shield Bars
-    public Image healthBar, shieldBar;
+    [Header("Health & Shield Bars")]
+    public Image healthBar;
+    public Image shieldBar;
 
-    //Abilities
-    public GameObject speedIcon, shieldIcon, maxHpIcon, damageIcon;
+    [Header("Icons")]
+    [SerializeField] GameObject shieldIcon;
+    [SerializeField] GameObject maxHpIcon;
+    [SerializeField] GameObject damageIcon;
+
+    [Header("Speed Btn")]
+    public Image speedBtn;
+    public Color baseCSpeed;
+    public Color activeCSpeed;
+    [Header("Shield Btn")]
+    public Image shieldBtn;
+    public Color baseCShield;
+    public Color activeCShield;
+    [Header("MaxHp Btn")]
+    public Image hpBtn;
+    public Color baseCHp;
+    public Color activeCHp;
+    [Header("damage Btn")]
+    public Image dmgBtn;
+    public Color baseCDmg;
+    public Color activeCDmg;
 
     private void OnEnable()
     {

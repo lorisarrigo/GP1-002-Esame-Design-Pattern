@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 public class ChangeStatusCommand : ICommand
 {
-    GameObject Player; //GameObject da cambiare (è effettivamente così, serve?)
     GameObject Ability; //The PowerUp picked that will activate & deactivate;
     PowerUp type;
     bool Unlocked;
@@ -10,9 +9,8 @@ public class ChangeStatusCommand : ICommand
     public static event Action OnHp;
     public static event Action OnDmg;
     //ci salviamo l'oggetto da modificare, l'abilità ottenuta e quella da reimpostare
-    public ChangeStatusCommand(GameObject player, GameObject _Ability, PowerUp _type)
+    public ChangeStatusCommand(GameObject _Ability, PowerUp _type)
     {
-        Player = player;
         Ability = _Ability;
         type = _type;
         AbilityCommand.Instance.AddCommand(this);

@@ -15,7 +15,7 @@ public class AbilityPickUp : MonoBehaviour
         Player player = other.GetComponent<Player>();
         if (player != null)
         {
-            new ChangeStatusCommand(player.gameObject, gameObject, powerUp);
+            new ChangeStatusCommand(gameObject, powerUp);
         }
     }
 }

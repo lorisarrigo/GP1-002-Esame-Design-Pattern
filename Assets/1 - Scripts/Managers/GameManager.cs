@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -5,7 +6,7 @@ using UnityEngine.SceneManagement;
 public enum GameState
 {
     Running,
-    Paused
+    Paused,
 }
 
 public class GameManager : MonoBehaviour
@@ -18,7 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject inGameHUD;
 
     [SerializeField] GameObject pauseScreen;
-    //[SerializeField] GameObject winScreen;
+    [SerializeField] GameObject winScreen;
+
+    public int EnemyCounter;
 
     public static GameManager instance;
     private void Awake()
@@ -33,20 +36,18 @@ public class GameManager : MonoBehaviour
         inputs = new InputMap();
         state = GameState.Running;
     }
+    //here I define the behaviour of the states
     private void OnEnable()
     {
-        inputs.Enable();
         if (state == GameState.Paused)
             Pause();
-        else 
+        else
             Running();
     }
     private void OnDisable()
     {
         inputs.Player.Pause.started -= ChangeState;
         inputs.Pause.Pause.started -= ChangeState;
-        inputs.Pause.Restart.started -= Restart;
-        inputs.Disable();
     }
 
     private void Pause()
@@ -75,7 +76,22 @@ public class GameManager : MonoBehaviour
         inputs.Player.Enable();
 
         inputs.Player.Pause.started += ChangeState;
+        inputs.Pause.Restart.started -= Restart;
     }
+    private void Update()
+    {
+        if (EnemyCounter == 0)
+        {
+            Time.timeScale = 0;
+
+            inGameHUD.SetActive(false);
+            winScreen.SetActive(true);
+            inputs.Player.Disable();
+            inputs.Pause.Enable();
+            inputs.Pause.Restart.started += Restart;
+        }
+    }
+    //here I change the state if I press Space
     private void ChangeState(InputAction.CallbackContext context)
     {
         if (state == GameState.Paused)

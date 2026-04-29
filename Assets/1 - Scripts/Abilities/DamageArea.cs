@@ -1,34 +1,26 @@
-using System.Collections;
 using UnityEngine;
 public class DamageArea : MonoBehaviour
 {
     //The class used to deal damage at the Enemies 
 
-    [SerializeField] float dmg, dmgRate;
+    [SerializeField] float dmg, dmgRate, timer;
 
     GameObject collObj;
+    private void OnDisable()
+    {
+        timer = 0;
+    }
     private void OnTriggerStay(Collider other)
     {
         collObj = other.gameObject;
-    }
-    private void OnEnable()
-    {
-        StartCoroutine(DealDamage());
-    }
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
-
-    //this coroutine does damage without a timer, the Coroutine itself is the timer
-    IEnumerator DealDamage()
-    {
-        while (true)
+        timer += Time.deltaTime;
+        if (timer >= dmgRate)
         {
             ApplyDam();
-            yield return new WaitForSeconds(dmgRate);
+            timer = 0;
         }
     }
+
     private void ApplyDam()
     {
         if (collObj == null) return;

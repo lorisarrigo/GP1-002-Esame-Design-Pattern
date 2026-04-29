@@ -69,6 +69,7 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
     public void Despawn()
     {
         gameObject.SetActive(false);
+        GameManager.instance.EnemyCounter--;
     }
 
     private void OnDrawGizmosSelected()

@@ -27,6 +27,7 @@ public class AbilitySwitcher : MonoBehaviour
         inputs.Player.ShieldAbility.started += ActivateShield;
         inputs.Player.MaxHpAbility.started += ActivateHP;
         inputs.Player.DamageAbility.started += ActivateDam;
+
     }
     void OnDisable()
     {
@@ -36,27 +37,31 @@ public class AbilitySwitcher : MonoBehaviour
         inputs.Player.MaxHpAbility.started -= ActivateHP;
         inputs.Player.DamageAbility.started -= ActivateDam;
     }
-
-    private void Update()
-    {
-        Debug.Log(Ability);
-    }
     //sets the current ability selected by the input
     void ActivateSpeed(InputAction.CallbackContext context)
     {
-        ChangeToSpeed();
+            ChangeToSpeed();
     }
     void ActivateShield(InputAction.CallbackContext context)
     {
-        ChangeToShield();
+        if (GameManager.instance.state == GameState.Running)
+        {
+            ChangeToShield();
+        }
     }
     void ActivateHP(InputAction.CallbackContext context)
     {
-        ChangeToHp();
+        if (GameManager.instance.state == GameState.Running)
+        {
+            ChangeToHp();
+        }
     }
     void ActivateDam(InputAction.CallbackContext context)
     {
-        ChangeToDmg();
+        if (GameManager.instance.state == GameState.Running)
+        {
+            ChangeToDmg();
+        }
     }
 
     public void ChangeToSpeed()
