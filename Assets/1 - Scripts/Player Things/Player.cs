@@ -87,6 +87,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             transform.position = startingPoint;
             currentHP = maxHP;
+            AbilityManager.Instance.damageArea.SetActive(false);
             AbilityCommand.Instance.UndoCommand();
         }
     }
