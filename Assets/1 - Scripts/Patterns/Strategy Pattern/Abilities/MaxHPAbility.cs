@@ -6,11 +6,9 @@ public class MaxHPAbility : IAbility
     {
         Player.Instance.currentHP = Player.Instance.maxHP;
         AbilityManager.Instance.invincible = true;
-        Debug.Log(AbilityManager.Instance.invincible);
     }
     public void ResetPlayerStatus()
     {
         AbilityManager.Instance.invincible = false;
-        Debug.Log(AbilityManager.Instance.invincible);
     }
 }
