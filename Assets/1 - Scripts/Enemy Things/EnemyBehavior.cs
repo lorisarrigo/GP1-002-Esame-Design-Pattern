@@ -3,7 +3,6 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
 {
     //the class used to manage how the Enemy Behavs 
 
-    //gets the Pooler
     [SerializeField] ItemPooler Pooler;
     Rigidbody rb;
 
@@ -17,7 +16,7 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
     [SerializeField] float rotationSpeed; //the speed of the rotation of the enemy
 
     [Header("Bullet settings")]
-    [SerializeField] Transform bulletSpawner;
+    [SerializeField] Transform bulletSpawner; //the position of the bullet spawner
     [SerializeField] float bRate;
     float timer;
 
@@ -69,9 +68,8 @@ public class EnemyBehavior : MonoBehaviour, IDamageable
     public void Despawn()
     {
         gameObject.SetActive(false);
-        GameManager.instance.EnemyCounter--;
+        GameManager.instance.EnemyCounter--; //when this counter hit 0 make the Player win
     }
-
     private void OnDrawGizmosSelected()
     {
         //draws a Gizmo to see the Attack area

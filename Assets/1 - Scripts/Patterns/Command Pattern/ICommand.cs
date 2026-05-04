@@ -1,5 +1,6 @@
 public interface ICommand 
 {
-    public void Execute(); 
+    //an Interface used to manage the behaviour of the commang pattern
+    public void Execute();
     public void Undo();
 }

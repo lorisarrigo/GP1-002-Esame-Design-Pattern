@@ -4,11 +4,11 @@ using UnityEngine.InputSystem;
 
 public class AbilityUser : MonoBehaviour
 {
-    //The User, Cast the ability
+    //The User class, Cast the ability
 
     InputMap inputs;
 
-    //bools used to permit the use of multiple ability at the same time
+    //those bools permit the use of multiple ability at the same time
     bool speed, shield, maxHp, damage;
 
     IAbility _currentAbility;
@@ -19,7 +19,6 @@ public class AbilityUser : MonoBehaviour
         inputs = new InputMap();
         UIM = FindAnyObjectByType<UIManager>();
     }
-
     private void OnEnable()
     {
         inputs.Enable();
@@ -31,7 +30,7 @@ public class AbilityUser : MonoBehaviour
         inputs.Disable();
         inputs.Player.ActivateAbility.started -= Activate;
     }
-    //create start the Coroutine for the Ability selected
+    //start the Coroutine for the Ability selected
     void Activate(InputAction.CallbackContext context)
     {
         if (GameManager.instance.state == GameState.Running)
@@ -74,16 +73,29 @@ public class AbilityUser : MonoBehaviour
         }
     }
 
-    //Coroutine used to manage the duration & the cooldown of the Ability
+    /*Coroutine used to manage the duration & the cooldown of the Ability:
+     * 1- start the effect
+     * 2- wait for the end of the duration
+     * 3- reset the base status of the player
+     * 4- wait for the cooldown
+     * 5- make the ability usable again
+     */
+
     IEnumerator StartAbility(IAbility Ability)
     {
+        //1.
         Ability?.UseAbility();
 
+        //2.
         yield return new WaitForSeconds(AbilityManager.Instance.abilityDuration);
 
+        //3.
         Ability?.ResetPlayerStatus();
 
+        //4.
         yield return new WaitForSeconds(AbilityManager.Instance.abilityCooldown);
+
+        //5.
         switch (Ability)
         {
             case SpeedAbility:

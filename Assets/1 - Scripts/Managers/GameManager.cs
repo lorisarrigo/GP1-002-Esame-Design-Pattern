@@ -1,17 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-
 public enum GameState
 {
     Running,
     Paused,
 }
-
 public class GameManager : MonoBehaviour
 {
-    //ora cambia stato ma non disabilità gli input
     public GameState state;
     InputMap inputs;
 
@@ -19,11 +15,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject inGameHUD;
 
     [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject inputScreen;
     [SerializeField] GameObject winScreen;
 
+    //the counter used to activate the win screen
     public int EnemyCounter;
 
     public static GameManager instance;
+    /*it's recalled in:
+     * AbilitySwitcher to prevent the use of normal Player Inputs (the switching of the abilities) while in pause;
+     * AbilityUser to prevent the use of normal Player Inputs (the Ability Casting) while in pause;
+     * EnemyBehavior to decreass the Enemy Counter.
+     */
     private void Awake()
     {
         if (instance != null)
@@ -48,8 +51,22 @@ public class GameManager : MonoBehaviour
     {
         inputs.Player.Pause.started -= ChangeState;
         inputs.Pause.Pause.started -= ChangeState;
+        inputs.Player.Disable();
+        inputs.Pause.Disable();
     }
+    private void Update()
+    {
+        if (EnemyCounter == 0)
+        {
+            Time.timeScale = 0;
 
+            pauseScreen.SetActive(false);
+            inGameHUD.SetActive(false);
+            winScreen.SetActive(true);
+            inputs.Pause.Enable();
+            inputs.Pause.Restart.started += Restart;
+        }
+    }
     private void Pause()
     {
         state = GameState.Paused;
@@ -58,7 +75,6 @@ public class GameManager : MonoBehaviour
         inGameHUD.SetActive(false);
         pauseScreen.SetActive(true);
 
-        inputs.Player.Disable();
         inputs.Pause.Enable();
 
         inputs.Pause.Pause.started += ChangeState;
@@ -70,28 +86,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         inGameHUD.SetActive(true);
+        inputScreen.SetActive(false);
         pauseScreen.SetActive(false);
 
-        inputs.Pause.Disable();
         inputs.Player.Enable();
 
         inputs.Player.Pause.started += ChangeState;
         inputs.Pause.Restart.started -= Restart;
     }
-    private void Update()
-    {
-        if (EnemyCounter == 0)
-        {
-            Time.timeScale = 0;
-
-            inGameHUD.SetActive(false);
-            winScreen.SetActive(true);
-            inputs.Player.Disable();
-            inputs.Pause.Enable();
-            inputs.Pause.Restart.started += Restart;
-        }
-    }
-    //here I change the state if I press Space
+    //here I change the state if I press Esc or P
     private void ChangeState(InputAction.CallbackContext context)
     {
         if (state == GameState.Paused)
@@ -99,6 +102,22 @@ public class GameManager : MonoBehaviour
         else if (state == GameState.Running)
             Pause();
     }
+    //a function used to Activate/Deactivate the Input Screen
+    public void Inputs()
+    {
+        if (inputScreen.activeInHierarchy)
+        {
+            inputScreen.SetActive(false);
+            pauseScreen.SetActive(true);
+        }
+        else
+        {
+            inputScreen.SetActive(true);
+            pauseScreen.SetActive(false);
+        }
+    }
+
+    //the reset & quit function
     public void Restart(InputAction.CallbackContext context)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

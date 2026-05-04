@@ -1,7 +1,8 @@
 using UnityEngine;
 public class Bullet : MonoBehaviour
 {
-    //the class used to deal damage on contact to the Player & Shield
+    //the class used to deal damage on contact to the Player or Shield
+
     Rigidbody rb;
     GameObject collObj;
     [SerializeField] float bSpeed, baseDmg, dmgPerHit, dPos; //speed, damage & despawn position of the Bullet
@@ -23,7 +24,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        //ignores the damage Area so it can't Deactivate the Bullet
+        //ignores the damage & shield Area so they can't Deactivate the Bullet
         collObj = other.gameObject;
 
         if (collObj != AbilityManager.Instance.damageArea && collObj != AbilityManager.Instance.shieldArea)
@@ -51,6 +52,7 @@ public class Bullet : MonoBehaviour
         if (Vector3.Distance(spawnPos, transform.position) >= dPos)
             gameObject.SetActive(false);
 
+        //if the MaxHp Ability is Active makes the Player invincible
         if (AbilityManager.Instance.invincible)
             dmgPerHit = 0;
         else
