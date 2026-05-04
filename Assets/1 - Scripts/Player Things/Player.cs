@@ -100,6 +100,7 @@ public class Player : MonoBehaviour, IDamageable
             currentHP = maxHP;
             AbilityManager.Instance.damageArea.SetActive(false);
             AbilityCommand.Instance.UndoCommand();
+            OnDamage?.Invoke();
         }
     }
 }

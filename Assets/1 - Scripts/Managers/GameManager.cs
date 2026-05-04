@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         inputs.Player.Pause.started -= ChangeState;
         inputs.Pause.Pause.started -= ChangeState;
+        inputs.Pause.Restart.started -= Restart;
         inputs.Player.Disable();
         inputs.Pause.Disable();
     }
@@ -76,9 +77,9 @@ public class GameManager : MonoBehaviour
         pauseScreen.SetActive(true);
 
         inputs.Pause.Enable();
+        inputs.Player.Disable();
 
-        inputs.Pause.Pause.started += ChangeState;
-        inputs.Pause.Restart.started += Restart;
+        inputs.Player.Pause.started += ChangeState;
     }
     private void Running()
     {
@@ -90,16 +91,16 @@ public class GameManager : MonoBehaviour
         pauseScreen.SetActive(false);
 
         inputs.Player.Enable();
+        inputs.Pause.Disable();
 
         inputs.Player.Pause.started += ChangeState;
-        inputs.Pause.Restart.started -= Restart;
     }
     //here I change the state if I press Esc or P
     private void ChangeState(InputAction.CallbackContext context)
     {
         if (state == GameState.Paused)
             Running();
-        else if (state == GameState.Running)
+        if (state == GameState.Running)
             Pause();
     }
     //a function used to Activate/Deactivate the Input Screen
